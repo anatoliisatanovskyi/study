@@ -1,4 +1,4 @@
-package excerciselocal.java.excercise.filesio;
+package excercise.local.java.excercise.filesio;
 
 import org.junit.Test;
 

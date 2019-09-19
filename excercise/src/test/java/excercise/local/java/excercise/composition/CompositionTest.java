@@ -1,4 +1,4 @@
-package excerciselocal.java.excercise.composition;
+package excercise.local.java.excercise.composition;
 
 import static org.junit.Assert.*;
 
