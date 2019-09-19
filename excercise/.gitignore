@@ -15,4 +15,4 @@
 *.rar
 
 #Eclipse
-**/.settings/
+.settings/
