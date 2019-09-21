@@ -13,6 +13,10 @@ public class FilesIOTest {
 	@Test
 	public void testReadAndStoreFirstNames() throws Exception {
 		// TODO: implement
+		//assertEquals(expected, actual);
+		//assertTrue(bool);
+		//assertNotNull();
+		//assertArrayEquals(exp, act);
 	}
 
 	/**
