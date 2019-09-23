@@ -80,5 +80,17 @@ public class FilesIOTest {
 		assertTrue(actual.size() == 11);
 
 	}
+	
+	//for help ==> to make quotes on names to add them to ArrayList
+//	String[] arr = new String[] { "Sarah", "James", "Kostya" };
+//	ArrayList l = new ArrayList();
+//
+//	for (String s : arr) {
+//		StringBuffer sb = new StringBuffer(s);
+//
+//		l.add(sb.append("\"").insert(0, "\"").toString());
+//
+//	}
+//	System.out.println(l);
 
 }
