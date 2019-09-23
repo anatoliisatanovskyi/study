@@ -1,5 +1,9 @@
 package local.java.excercise.randomization;
 
+import static org.junit.Assert.assertFalse;
+
+import java.util.*;
+
 import org.junit.Test;
 
 /**
@@ -20,6 +24,18 @@ public class RandomizationTest {
 	@Test
 	public void testRandomizeIntegerWithMinMaxValue() throws Exception {
 		// TODO: implement
+		List l = new ArrayList();
+		int max = 50;
+
+		for (int i = 0; i < 1000; i++) {
+			l.add(Randomizer.randomizeInteger(1, max));
+		}
+		for (Object value : l) {
+			assertFalse((int) value > max);
+
+		}
+		
+
 	}
 
 	/**
@@ -80,5 +96,9 @@ public class RandomizationTest {
 	@Test
 	public void testGenerateUniqueId() throws Exception {
 		// TODO: implement
+		UUID id = UUID.randomUUID();
+		String textualUniqueId = id.toString();
+		UUID actual = UUID.fromString(textualUniqueId);
+		
 	}
 }

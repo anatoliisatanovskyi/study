@@ -7,7 +7,7 @@ public class CompositionTest {
 	/**
 	 * In class local.java.excercise.composition.EntityGenerator create methods:
 	 * 
-	 * public static Employee generateEmployee() public static Department
+	 * public static Employee generateEmployee(Queue <String> firstNames, Queue<String> lastNames) public static Department
 	 * generateDepartment(int employees) public static Company
 	 * generateCompany(List<Integer> departmentEmployees)
 	 * 

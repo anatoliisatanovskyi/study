@@ -19,20 +19,22 @@ public class FilesIOTest {
 	@Test
 	public void testReadAndStoreFirstNames() throws Exception {
 
-		ArrayList actual = rr.readFirstName();
+		List actual = rr.readAsList("filesio/first_names.txt");
+		assertNotNull(actual);
+		assertTrue(!actual.isEmpty());
+		assertFalse(actual.isEmpty()); // or like this
+		assertEquals(50, actual.size());
 
 		// is the any other method to store values in List?
 
-		ArrayList expected = new ArrayList(Arrays.asList(new String[] { "Sherrill", "Stevie", "Brigida", "Julietta",
-				"Audrea", "Jaime", "Luna", "Kala", "Bethanie", "Nannie", "Mica", "Rose", "Jamey", "Minh", "Johnsie",
-				"Leia", "Natividad", "Shizuko", "Tommy", "Amal", "Jaquelyn", "Margy", "Belkis", "Dorinda", "Malika",
-				"Ebonie", "Darrin", "Deena", "Lory", "Haywood", "Modesto", "Saturnina", "Tu", "Shauna", "Odis", "Josef",
-				"Astrid", "Layne", "Janeth", "Jacqui", "Vincent", "Aubrey", "Terisa", "Dania", "Celia", "Lavette",
-				"Lavon", "Tracee", "Iraida", "Lawanda" }));
+		List expected = Arrays.asList(new String[] { "Sherrill", "Stevie", "Brigida", "Julietta", "Audrea", "Jaime",
+				"Luna", "Kala", "Bethanie", "Nannie", "Mica", "Rose", "Jamey", "Minh", "Johnsie", "Leia", "Natividad",
+				"Shizuko", "Tommy", "Amal", "Jaquelyn", "Margy", "Belkis", "Dorinda", "Malika", "Ebonie", "Darrin",
+				"Deena", "Lory", "Haywood", "Modesto", "Saturnina", "Tu", "Shauna", "Odis", "Josef", "Astrid", "Layne",
+				"Janeth", "Jacqui", "Vincent", "Aubrey", "Terisa", "Dania", "Celia", "Lavette", "Lavon", "Tracee",
+				"Iraida", "Lawanda" });
+		// System.out.println(Arrays.toString("dkfj,sdfy".split(",")));
 		assertEquals(expected, actual);
-		assertTrue(!actual.isEmpty());
-		assertTrue(actual.size() == 50);
-		assertNotNull(actual);
 
 		// what is the difference between Equals and ArrayEquals in my example?
 
@@ -51,18 +53,27 @@ public class FilesIOTest {
 	@Test
 	public void testReadAndStoreLastNames() throws Exception {
 		// TODO: implement
-		ArrayList actual = rr.readLastName();
-		ArrayList expected = new ArrayList(Arrays.asList(new String[] { "Epping", "Oliveira", "Nicholson", "Hackenberg",
-				"Lagunas", "Kall", "Ruther", "Ceron", "Barley", "Milardo", "Guerro", "Pino", "Burks", "Fly", "Hunt",
-				"Tibbets", "Marchand", "Brookshire", "Childs", "Claytor", "Weis", "Radice", "Paulk", "Harger", "Luthy",
-				"Kittleson", "Gisler", "Willcutt", "Stallone", "Rimer", "Galvin", "Guild", "Hosein", "Rizer", "Hurn",
-				"Sinkler", "Weyant", "Noren", "Debelak", "Denton", "Storlie", "Thomure", "Greene", "Gagliardi", "Kuo",
-				"Bias", "Mestayer", "Koehler", "Rodrigues", "Zerr" }));
+		List actual = rr.readAsList("filesio/first_names.txt");
+		List expected = Arrays.asList(new String[] { "Epping", "Oliveira", "Nicholson", "Hackenberg", "Lagunas", "Kall",
+				"Ruther", "Ceron", "Barley", "Milardo", "Guerro", "Pino", "Burks", "Fly", "Hunt", "Tibbets", "Marchand",
+				"Brookshire", "Childs", "Claytor", "Weis", "Radice", "Paulk", "Harger", "Luthy", "Kittleson", "Gisler",
+				"Willcutt", "Stallone", "Rimer", "Galvin", "Guild", "Hosein", "Rizer", "Hurn", "Sinkler", "Weyant",
+				"Noren", "Debelak", "Denton", "Storlie", "Thomure", "Greene", "Gagliardi", "Kuo", "Bias", "Mestayer",
+				"Koehler", "Rodrigues", "Zerr" });
 		// this method wants Array only, not List?
 		assertArrayEquals(expected.toArray(), actual.toArray());
 		assertEquals(expected, actual);
 		assertNotNull(actual);
 
+	}
+
+	@Test
+	public void testNewtest() {
+
+		List l = new ArrayList();
+		l.add("CUCUMBER");
+		System.out.println(l);
+		System.out.println(Arrays.toString(l.toArray()));
 	}
 
 	@Test
@@ -72,7 +83,7 @@ public class FilesIOTest {
 		assertTrue(actual.size() == 39);
 
 	}
-	
+
 	@Test
 	public void testReadDepartmentNames() throws Exception {
 		ArrayList actual = rr.readDepartmentName();
@@ -80,8 +91,8 @@ public class FilesIOTest {
 		assertTrue(actual.size() == 11);
 
 	}
-	
-	//for help ==> to make quotes on names to add them to ArrayList
+
+	// for help ==> to make quotes on names to add them to ArrayList
 //	String[] arr = new String[] { "Sarah", "James", "Kostya" };
 //	ArrayList l = new ArrayList();
 //
