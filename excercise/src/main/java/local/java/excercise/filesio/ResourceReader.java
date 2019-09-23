@@ -7,15 +7,15 @@ public class ResourceReader {
 
 	private static final Random r = new Random();
 
-	public static ArrayList read() {
+	public static ArrayList readFirstName() {
 
 		// creating new ArrayList object
 		ArrayList l = new ArrayList();
 
 		// creating new input from file
-		//having problems with path. It works only with full path /User...
-		try (BufferedReader br = new BufferedReader(
-				new FileReader("/Users/neil/Documents/sources/exercise/excercise/src/main/resources/filesio/first_names.txt"))) {
+		// having problems with path. It works only with full path /User...
+		try (BufferedReader br = new BufferedReader(new FileReader(
+				"/Users/neil/Documents/sources/exercise/excercise/src/main/resources/filesio/first_names.txt"))) {
 			String s;
 			while ((s = br.readLine()) != null) {
 				l.add(s);
@@ -29,4 +29,70 @@ public class ResourceReader {
 
 	}
 
+	public static ArrayList readLastName() {
+
+		// creating new ArrayList object
+		ArrayList l = new ArrayList();
+
+		// creating new input from file
+		// having problems with path. It works only with full path /User...
+		try (BufferedReader br = new BufferedReader(new FileReader(
+				"/Users/neil/Documents/sources/exercise/excercise/src/main/resources/filesio/last_names.txt"))) {
+			String s;
+			while ((s = br.readLine()) != null) {
+				l.add(s);
+			}
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+		return l;
+
+	}
+
+	public static ArrayList readCompanyName() {
+
+
+		// creating new ArrayList object
+		ArrayList l = new ArrayList();
+
+		// creating new input from file
+		// having problems with path. It works only with full path /User...
+		try (BufferedReader br = new BufferedReader(new FileReader(
+				"/Users/neil/Documents/sources/exercise/excercise/src/main/resources/filesio/company_names.txt"))) {
+			String s;
+			while ((s = br.readLine()) != null) {
+				l.add(s);
+			}
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+		return l;
+
+	}
+
+	public static ArrayList readDepartmentName() {
+
+		// creating new ArrayList object
+		ArrayList l = new ArrayList();
+
+		// creating new input from file
+		// having problems with path. It works only with full path /User...
+		try (BufferedReader br = new BufferedReader(new FileReader(
+				"/Users/neil/Documents/sources/exercise/excercise/src/main/resources/filesio/department_names.txt"))) {
+			String s;
+			while ((s = br.readLine()) != null) {
+				l.add(s);
+			}
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+		return l;
+
+	}
 }

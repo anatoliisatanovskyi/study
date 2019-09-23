@@ -4,10 +4,11 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-
 import java.util.*;
 
 public class FilesIOTest {
+
+	ResourceReader rr = new ResourceReader();
 
 	/**
 	 * in file local.java.excercise.filesio.ResourceReader create a public static
@@ -17,27 +18,29 @@ public class FilesIOTest {
 	 */
 	@Test
 	public void testReadAndStoreFirstNames() throws Exception {
-		
-		ResourceReader rr = new ResourceReader();
-		
-		ArrayList actual = rr.read();
-		
-		// is the any other method??
-		
-		ArrayList expected = new ArrayList(Arrays.asList( new String[] {"Sherrill", "Stevie", "Brigida", "Julietta", "Audrea", "Jaime", "Luna", "Kala", "Bethanie", "Nannie", "Mica", "Rose", "Jamey", "Minh", "Johnsie", "Leia", "Natividad", "Shizuko", "Tommy", "Amal", "Jaquelyn", "Margy", "Belkis", "Dorinda", "Malika", "Ebonie", "Darrin", "Deena", "Lory", "Haywood", "Modesto", "Saturnina", "Tu", "Shauna", "Odis", "Josef", "Astrid", "Layne", "Janeth", "Jacqui", "Vincent", "Aubrey", "Terisa", "Dania", "Celia", "Lavette", "Lavon", "Tracee", "Iraida", "Lawanda"})) ;
+
+		ArrayList actual = rr.readFirstName();
+
+		// is the any other method to store values in List?
+
+		ArrayList expected = new ArrayList(Arrays.asList(new String[] { "Sherrill", "Stevie", "Brigida", "Julietta",
+				"Audrea", "Jaime", "Luna", "Kala", "Bethanie", "Nannie", "Mica", "Rose", "Jamey", "Minh", "Johnsie",
+				"Leia", "Natividad", "Shizuko", "Tommy", "Amal", "Jaquelyn", "Margy", "Belkis", "Dorinda", "Malika",
+				"Ebonie", "Darrin", "Deena", "Lory", "Haywood", "Modesto", "Saturnina", "Tu", "Shauna", "Odis", "Josef",
+				"Astrid", "Layne", "Janeth", "Jacqui", "Vincent", "Aubrey", "Terisa", "Dania", "Celia", "Lavette",
+				"Lavon", "Tracee", "Iraida", "Lawanda" }));
 		assertEquals(expected, actual);
 		assertTrue(!actual.isEmpty());
 		assertTrue(actual.size() == 50);
 		assertNotNull(actual);
-		
-		//what is the difference between Equals and ArrayEquals in my example?
-		
-		
+
+		// what is the difference between Equals and ArrayEquals in my example?
+
 		// TODO: implement
-		//assertEquals(expected, actual);
-		//assertTrue(bool);
-		//assertNotNull();
-		//assertArrayEquals(exp, act);
+		// assertEquals(expected, actual);
+		// assertTrue(bool);
+		// assertNotNull();
+		// assertArrayEquals(exp, act);
 	}
 
 	/**
@@ -48,5 +51,34 @@ public class FilesIOTest {
 	@Test
 	public void testReadAndStoreLastNames() throws Exception {
 		// TODO: implement
+		ArrayList actual = rr.readLastName();
+		ArrayList expected = new ArrayList(Arrays.asList(new String[] { "Epping", "Oliveira", "Nicholson", "Hackenberg",
+				"Lagunas", "Kall", "Ruther", "Ceron", "Barley", "Milardo", "Guerro", "Pino", "Burks", "Fly", "Hunt",
+				"Tibbets", "Marchand", "Brookshire", "Childs", "Claytor", "Weis", "Radice", "Paulk", "Harger", "Luthy",
+				"Kittleson", "Gisler", "Willcutt", "Stallone", "Rimer", "Galvin", "Guild", "Hosein", "Rizer", "Hurn",
+				"Sinkler", "Weyant", "Noren", "Debelak", "Denton", "Storlie", "Thomure", "Greene", "Gagliardi", "Kuo",
+				"Bias", "Mestayer", "Koehler", "Rodrigues", "Zerr" }));
+		// this method wants Array only, not List?
+		assertArrayEquals(expected.toArray(), actual.toArray());
+		assertEquals(expected, actual);
+		assertNotNull(actual);
+
 	}
+
+	@Test
+	public void testReadCompanyNames() throws Exception {
+		ArrayList actual = rr.readCompanyName();
+		assertNotNull(actual);
+		assertTrue(actual.size() == 39);
+
+	}
+	
+	@Test
+	public void testReadDepartmentNames() throws Exception {
+		ArrayList actual = rr.readDepartmentName();
+		assertNotNull(actual);
+		assertTrue(actual.size() == 11);
+
+	}
+
 }
