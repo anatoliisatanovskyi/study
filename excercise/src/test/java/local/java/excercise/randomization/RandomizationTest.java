@@ -1,6 +1,8 @@
 package local.java.excercise.randomization;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.*;
 
@@ -22,10 +24,11 @@ public class RandomizationTest {
 	 * greater then max parameter
 	 */
 	@Test
+
 	public void testRandomizeIntegerWithMinMaxValue() throws Exception {
 		// TODO: implement
 		List l = new ArrayList();
-		int max = 50;
+		int max = 100;
 
 		for (int i = 0; i < 1000; i++) {
 			l.add(Randomizer.randomizeInteger(1, max));
@@ -34,7 +37,6 @@ public class RandomizationTest {
 			assertFalse((int) value > max);
 
 		}
-		
 
 	}
 
@@ -47,6 +49,19 @@ public class RandomizationTest {
 	@Test
 	public void testRandomizeIntegerWithoutMinMaxValue() throws Exception {
 		// TODO: implement
+		List l = new ArrayList();
+		int max = Integer.MAX_VALUE;
+
+		for (int i = 0; i < 100; i++) {
+			l.add(Randomizer.randomizeInteger());
+
+		}
+
+		Iterator itr = l.iterator();
+		while (itr.hasNext()) {
+			assertTrue((int) itr.next() < Integer.MAX_VALUE);
+		}
+
 	}
 
 	/**
@@ -63,6 +78,15 @@ public class RandomizationTest {
 	@Test
 	public void testRandomizeDoubleWithMinMaxValue() throws Exception {
 		// TODO: implement
+
+		List l = new ArrayList();
+
+		for (int i = 0; i < 1000; i++) {
+			l.add(Randomizer.randomizeDoule(0, 100, 2));
+		}
+		for (Object d : l) {
+			assertTrue((double) d < 100);
+		}
 	}
 
 	/**
@@ -74,6 +98,10 @@ public class RandomizationTest {
 	@Test
 	public void testRandomizeDoubleWithoutMinMaxValue() throws Exception {
 		// TODO: implement
+
+		// Failed :(
+
+		System.out.println(Randomizer.randomizeDouble(3));
 	}
 
 	/**
@@ -83,6 +111,21 @@ public class RandomizationTest {
 	@Test
 	public void testRandomizeBoolean() throws Exception {
 		// TODO: implement
+		List l = new ArrayList();
+
+		for (int i = 0; i < 100; i++) {
+			l.add(Randomizer.randomBoolean());
+		}
+
+		Iterator itr = l.iterator();
+		while (itr.hasNext()) {
+			boolean b = (boolean) itr.next();
+			if (b)
+				assertTrue(b);
+			else
+				assertFalse(b);
+
+		}
 	}
 
 	/**
@@ -96,9 +139,10 @@ public class RandomizationTest {
 	@Test
 	public void testGenerateUniqueId() throws Exception {
 		// TODO: implement
-		UUID id = UUID.randomUUID();
-		String textualUniqueId = id.toString();
+	UUID uniqueId = Randomizer.randomUUID();
+		String textualUniqueId = uniqueId.toString();
 		UUID actual = UUID.fromString(textualUniqueId);
-		
+		assertEquals(uniqueId , actual);
+
 	}
 }
