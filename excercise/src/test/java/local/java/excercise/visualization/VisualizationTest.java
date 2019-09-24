@@ -1,8 +1,7 @@
 package local.java.excercise.visualization;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,12 +9,62 @@ import java.util.stream.IntStream;
 
 import org.junit.Test;
 
+import local.java.excercise.aggregation.Aggregator;
 import local.java.excercise.composition.EntityGenerator;
+import local.java.excercise.filesio.LinesWriter;
 import local.java.model.Company;
 import local.java.model.CompanyRateing;
+import local.java.model.Employee;
 import local.java.model.RateingType;
 
 public class VisualizationTest {
+
+	@Test
+	public void testCompanyEmployeeSalary() throws Exception {
+		
+		Company company = EntityGenerator.generateCompany();
+		List<Employee> employees = Aggregator.getCompanyEmployees(company).stream()
+				.sorted((c1, c2) -> c2.getSalary().compareTo(c1.getSalary())).limit(25).collect(Collectors.toList());
+
+		List<String> lines = new ArrayList<>();
+		lines.add("name,salary");
+		lines.addAll(employees.stream().map(e -> {
+			return String.format("%s %s,%.2f", e.getFirstName(), e.getLastName(), e.getSalary());
+		}).collect(Collectors.toList()));
+
+		String path = new StringBuilder().append(resourceRootPath()).append(File.separator).append("web")
+				.append(File.separator).append("salary.csv").toString();
+
+		LinesWriter.writeNew(path, lines);
+
+		System.out.println(resourceRootPath() + File.separator + "web" + File.separator + "salary.html");
+	}
+
+	@Test
+	public void testCompanyEmployeeAge() throws Exception {
+		Company company = EntityGenerator.generateCompany();
+		List<Employee> employees = Aggregator.getCompanyEmployees(company);
+
+		int maxSize = 20;
+		if (employees.size() > maxSize)
+			employees = employees.subList(0, maxSize);
+
+		employees = employees.stream().sorted((c1, c2) -> c2.getAge().compareTo(c1.getAge()))
+				.collect(Collectors.toList());
+
+		List<String> lines = new ArrayList<>();
+		lines.add("name,age");
+		lines.addAll(employees.stream().map(e -> {
+			return String.format("%s %s,%d", e.getFirstName(), e.getLastName(), e.getAge());
+		}).collect(Collectors.toList()));
+
+		String path = new StringBuilder().append(resourceRootPath()).append(File.separator).append("web")
+				.append(File.separator).append("age.csv").toString();
+
+		LinesWriter.writeNew(path, lines);
+
+		System.out.println(resourceRootPath() + File.separator + "web" + File.separator + "age.html");
+	}
 
 	@Test
 	public void testCompanyRatings() throws Exception {
@@ -29,41 +78,24 @@ public class VisualizationTest {
 					RateingType.COMPLEXITY_AVERAGE.createFor(c, companies));
 		}).collect(Collectors.toList());
 
-		List<String> lines = rateings.stream().map(cr -> String.format("%s,%.2f,%.2f,%.2f", cr.getName(), cr.getSize(),
-				cr.getMotivation(), cr.getComplexity())).collect(Collectors.toList());
+		List<String> lines = new ArrayList<>();
+		lines.add("name,size,motivation,complexity");
+		lines.addAll(rateings.stream().map(cr -> String.format("%s,%.2f,%.2f,%.2f", cr.getName(), cr.getSize(),
+				cr.getMotivation(), cr.getComplexity())).collect(Collectors.toList()));
 
-		String resourcesRoot = new StringBuilder()
+		String path = new StringBuilder().append(resourceRootPath()).append(File.separator).append("web")
+				.append(File.separator).append("ratings.csv").toString();
+
+		LinesWriter.writeNew(path, lines);
+
+		System.out.println(resourceRootPath() + File.separator + "web" + File.separator + "ratings.html");
+	}
+
+	private String resourceRootPath() {
+		return new StringBuilder()
 				.append(new File(this.getClass().getClassLoader().getResource(".").getFile()).getParentFile()
 						.getParentFile().getAbsolutePath())
 				.append(File.separator).append("src").append(File.separator).append("main").append(File.separator)
 				.append("resources").toString();
-
-		String path = new StringBuilder().append(resourcesRoot).append(File.separator).append("web")
-				.append(File.separator).append("grades.csv").toString();
-
-		writeLines(path, lines);
-
-		System.out.printf("html link:%s", resourcesRoot + File.separator + "web" + File.separator + "index.html");
 	}
-
-	private void writeLines(String path, Collection<String> lines) throws IOException {
-
-		recreateFile(path);
-
-		try (FileWriter fw = new FileWriter(path)) {
-			fw.write("name,size,motivation,complexity\n");
-			for (String line : lines) {
-				fw.write(line + "\n");
-			}
-		}
-	}
-
-	private void recreateFile(String path) throws IOException {
-		File file = new File(path);
-		if (file.exists()) {
-			file.delete();
-		}
-		file.createNewFile();
-	}
-
 }

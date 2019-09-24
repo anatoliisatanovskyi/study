@@ -13,37 +13,37 @@
 </head>
 
 <body>
-	
+
 	<div class="chart-container"
 		style="position: relative; height: 35vh; width: 70vw">
 		<canvas id="chart"></canvas>
 	</div>
 
 	<script>
-		d3.csv('grades.csv').then(makeChart);
+		d3.csv('ratings.csv').then(makeChart);
 
-		function makeChart(companies) {
+		function makeChart(items) {
 
-			var companyNames = companies.map(function(d) {
+			var companyNames = items.map(function(d) {
 				return d.name
 			});
-			var sizeRatings = companies.map(function(d) {
+			var sizeRatings = items.map(function(d) {
 				return d.size
 			});
-			var motivationRatings = companies.map(function(d) {
+			var motivationRatings = items.map(function(d) {
 				return d.motivation
 			});
-			var complexityRating = companies.map(function(d) {
+			var complexityRating = items.map(function(d) {
 				return d.complexity
 			});
 
-			var color1 = companies.map(function(d) {
+			var color1 = items.map(function(d) {
 				return "#32a852"
 			});
-			var color2 = companies.map(function(d) {
+			var color2 = items.map(function(d) {
 				return "#3961b8"
 			});
-			var color3 = companies.map(function(d) {
+			var color3 = items.map(function(d) {
 				return "#d1d14b"
 			});
 
