@@ -4,6 +4,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.util.*;
 
 public class FilesIOTest {
@@ -19,24 +22,31 @@ public class FilesIOTest {
 	@Test
 	public void testReadAndStoreFirstNames() throws Exception {
 
-		List actual = rr.readAsList("filesio/first_names.txt");
+		String path = "filesio/first_names.txt";
+
+		List actual = rr.readAsList(path);
+
 		assertNotNull(actual);
 		assertTrue(!actual.isEmpty());
 		assertFalse(actual.isEmpty()); // or like this
-		assertEquals(50, actual.size());
+		BufferedReader br = new BufferedReader(
+				new InputStreamReader(ResourceReader.class.getClassLoader().getResourceAsStream(path)));
+		long linesCount = 0;
+		while (br.readLine() != null)
+			linesCount++;
+		assertEquals(actual.size(), linesCount);
 
-		// is the any other method to store values in List?
+		String names = ("Sherrill\n" + "Stevie\n" + "Brigida\n" + "Julietta\n" + "Audrea\n" + "Jaime\n" + "Luna\n"
+				+ "Kala\n" + "Bethanie\n" + "Nannie\n" + "Mica\n" + "Rose\n" + "Jamey\n" + "Minh\n" + "Johnsie\n"
+				+ "Leia\n" + "Natividad\n" + "Shizuko\n" + "Tommy\n" + "Amal\n" + "Jaquelyn\n" + "Margy\n" + "Belkis\n"
+				+ "Dorinda\n" + "Malika\n" + "Ebonie\n" + "Darrin\n" + "Deena\n" + "Lory\n" + "Haywood\n" + "Modesto\n"
+				+ "Saturnina\n" + "Tu\n" + "Shauna\n" + "Odis\n" + "Josef\n" + "Astrid\n" + "Layne\n" + "Janeth\n"
+				+ "Jacqui\n" + "Vincent\n" + "Aubrey\n" + "Terisa\n" + "Dania\n" + "Celia\n" + "Lavette\n" + "Lavon\n"
+				+ "Tracee\n" + "Iraida\n" + "Lawanda");
 
-		List expected = Arrays.asList(new String[] { "Sherrill", "Stevie", "Brigida", "Julietta", "Audrea", "Jaime",
-				"Luna", "Kala", "Bethanie", "Nannie", "Mica", "Rose", "Jamey", "Minh", "Johnsie", "Leia", "Natividad",
-				"Shizuko", "Tommy", "Amal", "Jaquelyn", "Margy", "Belkis", "Dorinda", "Malika", "Ebonie", "Darrin",
-				"Deena", "Lory", "Haywood", "Modesto", "Saturnina", "Tu", "Shauna", "Odis", "Josef", "Astrid", "Layne",
-				"Janeth", "Jacqui", "Vincent", "Aubrey", "Terisa", "Dania", "Celia", "Lavette", "Lavon", "Tracee",
-				"Iraida", "Lawanda" });
-		// System.out.println(Arrays.toString("dkfj,sdfy".split(",")));
+		List expected = Arrays.asList(names.split("\n"));
+
 		assertEquals(expected, actual);
-
-		// what is the difference between Equals and ArrayEquals in my example?
 
 		// TODO: implement
 		// assertEquals(expected, actual);
@@ -53,42 +63,76 @@ public class FilesIOTest {
 	@Test
 	public void testReadAndStoreLastNames() throws Exception {
 		// TODO: implement
-		List actual = rr.readAsList("filesio/first_names.txt");
-		List expected = Arrays.asList(new String[] { "Epping", "Oliveira", "Nicholson", "Hackenberg", "Lagunas", "Kall",
-				"Ruther", "Ceron", "Barley", "Milardo", "Guerro", "Pino", "Burks", "Fly", "Hunt", "Tibbets", "Marchand",
-				"Brookshire", "Childs", "Claytor", "Weis", "Radice", "Paulk", "Harger", "Luthy", "Kittleson", "Gisler",
-				"Willcutt", "Stallone", "Rimer", "Galvin", "Guild", "Hosein", "Rizer", "Hurn", "Sinkler", "Weyant",
-				"Noren", "Debelak", "Denton", "Storlie", "Thomure", "Greene", "Gagliardi", "Kuo", "Bias", "Mestayer",
-				"Koehler", "Rodrigues", "Zerr" });
-		// this method wants Array only, not List?
-		assertArrayEquals(expected.toArray(), actual.toArray());
-		assertEquals(expected, actual);
+		String path = "filesio/last_names.txt";
+		List actual = rr.readAsList(path);
 		assertNotNull(actual);
+		assertFalse(actual.isEmpty());
+		BufferedReader br = new BufferedReader(
+				new InputStreamReader(ResourceReader.class.getClassLoader().getResourceAsStream(path)));
+		long linesCount = 0;
+		while (br.readLine() != null)
+			linesCount++;
 
-	}
+		assertEquals(linesCount, actual.size());
 
-	@Test
-	public void testNewtest() {
+		String lastNames = "Epping\n" + "Oliveira\n" + "Nicholson\n" + "Hackenberg\n" + "Lagunas\n" + "Kall\n"
+				+ "Ruther\n" + "Ceron\n" + "Barley\n" + "Milardo\n" + "Guerro\n" + "Pino\n" + "Burks\n" + "Fly\n"
+				+ "Hunt\n" + "Tibbets\n" + "Marchand\n" + "Brookshire\n" + "Childs\n" + "Claytor\n" + "Weis\n"
+				+ "Radice\n" + "Paulk\n" + "Harger\n" + "Luthy\n" + "Kittleson\n" + "Gisler\n" + "Willcutt\n"
+				+ "Stallone\n" + "Rimer\n" + "Galvin\n" + "Guild\n" + "Hosein\n" + "Rizer\n" + "Hurn\n" + "Sinkler\n"
+				+ "Weyant\n" + "Noren\n" + "Debelak\n" + "Denton\n" + "Storlie\n" + "Thomure\n" + "Greene\n"
+				+ "Gagliardi\n" + "Kuo\n" + "Bias\n" + "Mestayer\n" + "Koehler\n" + "Rodrigues\n" + "Zerr";
+		List expected = Arrays.asList(lastNames.split("\n"));
+		assertEquals(expected, actual);
+		assertArrayEquals(expected.toArray(), actual.toArray());
 
-		List l = new ArrayList();
-		l.add("CUCUMBER");
-		System.out.println(l);
-		System.out.println(Arrays.toString(l.toArray()));
 	}
 
 	@Test
 	public void testReadCompanyNames() throws Exception {
-		ArrayList actual = rr.readCompanyName();
+		String path = "filesio/company_names.txt";
+		List actual = rr.readAsList(path);
 		assertNotNull(actual);
-		assertTrue(actual.size() == 39);
+		assertFalse(actual.isEmpty());
+		BufferedReader br = new BufferedReader(
+				new InputStreamReader(ResourceReader.class.getClassLoader().getResourceAsStream(path)));
+		long linesCount = 0;
+		while (br.readLine() != null)
+			linesCount++;
+
+		assertEquals(linesCount, actual.size());
+
+		String companyNames = "Bovill \n" + "Yanix \n" + "Leevee \n" + "Yota \n" + "Locic \n" + "Perer \n" + "Enise \n"
+				+ "Outise \n" + "Coramm \n" + "Kwizzy \n" + "Scizz \n" + "Corend \n" + "Autombu \n" + "Contracee \n"
+				+ "Conile \n" + "Cryomba \n" + "Bellose \n" + "Poder \n" + "Jafy \n" + "Neoxo \n" + "Epivu \n"
+				+ "Intravu \n" + "Megare \n" + "Infrare \n" + "Socimba \n" + "Alindo \n" + "Redoo \n" + "Subous \n"
+				+ "Dieloo \n" + "Parape \n" + "Cynism \n" + "Geondo \n" + "Uberible \n" + "Syil \n" + "Eigen \n"
+				+ "Mudel \n" + "Bonous \n" + "Nonosis \n" + "Suprafy";
+
+		List expected = Arrays.asList(companyNames.split("\n"));
+
+		assertEquals(expected, actual);
 
 	}
 
 	@Test
 	public void testReadDepartmentNames() throws Exception {
-		ArrayList actual = rr.readDepartmentName();
+		String path = "filesio/department_names.txt";
+		List actual = rr.readAsList(path);
 		assertNotNull(actual);
-		assertTrue(actual.size() == 11);
+		assertFalse(actual.isEmpty());
+		BufferedReader br = new BufferedReader(
+				new InputStreamReader(ResourceReader.class.getClassLoader().getResourceAsStream(path)));
+		long linesCount = 0;
+		while (br.readLine() != null)
+			linesCount++;
+		assertTrue(actual.size() == linesCount);
+
+		String departmentNames = "Accounting\n" + "IT\n" + "Sales\n" + "Marketing\n" + "Advertising\n" + "Support\n"
+				+ "HR\n" + "Logistics\n" + "Finance\n" + "Management\n" + "Public Relations";
+
+		List expected = Arrays.asList(departmentNames.split("\n"));
+		assertEquals(expected, actual);
 
 	}
 
