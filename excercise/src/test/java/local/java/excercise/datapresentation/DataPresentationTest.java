@@ -1,6 +1,19 @@
 package local.java.excercise.datapresentation;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import org.junit.Test;
+
+import local.java.excercise.composition.EntityGenerator;
+import local.java.model.Company;
+import local.java.model.CompanyRateing;
+import local.java.model.RateingType;
 
 /**
  * To generate company objects use

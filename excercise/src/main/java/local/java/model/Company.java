@@ -3,7 +3,7 @@ package local.java.model;
 import java.util.Collection;
 
 public class Company {
-	
+
 	private String name;
 	private Collection<Department> departments;
 
@@ -14,6 +14,11 @@ public class Company {
 	public Company(String name, Collection<Department> departments) {
 		this.name = name;
 		this.departments = departments;
+	}
+
+	@Override
+	public String toString() {
+		return "Company [name=" + name + ", departments=" + departments + "]";
 	}
 
 	public String getName() {

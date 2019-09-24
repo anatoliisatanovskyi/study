@@ -1,0 +1,79 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<title>Ratings Chart</title>
+<link rel="stylesheet" href="css/styles.css?v=1.0">
+<script src="js/Chart.bundle.js"></script>
+<script src="js/Chart.bundle.min.js"></script>
+<script src="js/d3.js"></script>
+<script src="js/d3.min.js"></script>
+</head>
+
+<body>
+	
+	<div class="chart-container"
+		style="position: relative; height: 35vh; width: 70vw">
+		<canvas id="chart"></canvas>
+	</div>
+
+	<script>
+		d3.csv('grades.csv').then(makeChart);
+
+		function makeChart(companies) {
+
+			var companyNames = companies.map(function(d) {
+				return d.name
+			});
+			var sizeRatings = companies.map(function(d) {
+				return d.size
+			});
+			var motivationRatings = companies.map(function(d) {
+				return d.motivation
+			});
+			var complexityRating = companies.map(function(d) {
+				return d.complexity
+			});
+
+			var color1 = companies.map(function(d) {
+				return "#32a852"
+			});
+			var color2 = companies.map(function(d) {
+				return "#3961b8"
+			});
+			var color3 = companies.map(function(d) {
+				return "#d1d14b"
+			});
+
+			var chart = new Chart('chart', {
+				type : 'bar',
+				data : {
+					labels : companyNames,
+					datasets : [ {
+						label : 'Size',
+						data : sizeRatings,
+						backgroundColor : color1
+					}, {
+						label : 'Motivation',
+						data : motivationRatings,
+						backgroundColor : color2
+					}, {
+						label : 'Complexity',
+						data : complexityRating,
+						backgroundColor : color3
+					} ]
+				},
+				options : {
+					title : {
+						display : true,
+						text : 'Ratings'
+					}
+				}
+			});
+		}
+	</script>
+</body>
+
+</html>
