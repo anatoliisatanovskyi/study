@@ -2,14 +2,19 @@ package local.java.excercise.composition;
 
 import org.junit.Test;
 
+import local.java.excercise.filesio.ResourceReader;
+import local.java.excercise.randomization.Randomizer;
+import local.java.model.Department;
+
 public class CompositionTest {
 
 	/**
 	 * In class local.java.excercise.composition.EntityGenerator create methods:
 	 * 
-	 * public static Employee generateEmployee(Queue <String> firstNames, Queue<String> lastNames) public static Department
-	 * generateDepartment(int employees) public static Company
-	 * generateCompany(List<Integer> departmentEmployees)
+	 * public static Employee generateEmployee(Queue <String> firstNames,
+	 * Queue<String> lastNames) public static Department generateDepartment(int
+	 * employees) public static Company generateCompany(List<Integer>
+	 * departmentEmployees)
 	 * 
 	 * These methods must generate and return random entity objects. To fill fields
 	 * Employee.firstName, Employee.lastName, Department.name, Company.name read and
@@ -22,6 +27,11 @@ public class CompositionTest {
 	@Test
 	public void testGenerateCompany() throws Exception {
 
+		Department dep = EntityGenerator.generateDepartment(
+				Randomizer.queueGenerator(ResourceReader.readAsList("filesio/department_names.txt")),
+				5);
+
+		System.out.println(dep.getEmployees());
 	}
 
 	/**

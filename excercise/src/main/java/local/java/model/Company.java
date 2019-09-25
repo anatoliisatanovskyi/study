@@ -5,13 +5,13 @@ import java.util.Collection;
 public class Company {
 	
 	private String name;
-	private Collection<Department> departments;
+	private Collection<Integer> departments;
 
 	public Company() {
 		super();
 	}
 
-	public Company(String name, Collection<Department> departments) {
+	public Company(String name, Collection<Integer> departments) {
 		this.name = name;
 		this.departments = departments;
 	}
