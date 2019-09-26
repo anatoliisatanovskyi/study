@@ -21,7 +21,7 @@ public class VisualizationTest {
 
 	@Test
 	public void testCompanyEmployeeSalary() throws Exception {
-		
+
 		Company company = EntityGenerator.generateCompany();
 		List<Employee> employees = Aggregator.getCompanyEmployees(company).stream()
 				.sorted((c1, c2) -> c2.getSalary().compareTo(c1.getSalary())).limit(25).collect(Collectors.toList());
@@ -42,15 +42,10 @@ public class VisualizationTest {
 
 	@Test
 	public void testCompanyEmployeeAge() throws Exception {
+		
 		Company company = EntityGenerator.generateCompany();
-		List<Employee> employees = Aggregator.getCompanyEmployees(company);
-
-		int maxSize = 20;
-		if (employees.size() > maxSize)
-			employees = employees.subList(0, maxSize);
-
-		employees = employees.stream().sorted((c1, c2) -> c2.getAge().compareTo(c1.getAge()))
-				.collect(Collectors.toList());
+		List<Employee> employees = Aggregator.getCompanyEmployees(company).stream()
+				.sorted((c1, c2) -> c2.getAge().compareTo(c1.getAge())).limit(25).collect(Collectors.toList());
 
 		List<String> lines = new ArrayList<>();
 		lines.add("name,age");
