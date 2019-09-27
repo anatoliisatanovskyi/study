@@ -22,8 +22,8 @@ public class EntityGenerator {
 		Queue<String> departmentNames = new LinkedList<>();
 		Queue<String> firstNames = new LinkedList<>();
 		Queue<String> lastNames = new LinkedList<>();
-		List<Integer> departmentEmployees = IntStream.range(0, Randomizer.randomizeInteger(3, 50)).boxed()
-				.map(c1 -> Randomizer.randomizeInteger(2, 60)).collect(Collectors.toList());
+		List<Integer> departmentEmployees = IntStream.range(0, Randomizer.randomizeInteger(1, 10)).boxed()
+				.map(c1 -> Randomizer.randomizeInteger(2, 20)).collect(Collectors.toList());
 		return generateCompany(companyNames, departmentNames, firstNames, lastNames, departmentEmployees);
 	}
 

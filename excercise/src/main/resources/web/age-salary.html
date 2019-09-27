@@ -1,0 +1,59 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<title>Salary by age</title>
+<link rel="stylesheet" href="css/styles.css?v=1.0">
+<script src="js/Chart.bundle.js"></script>
+<script src="js/Chart.bundle.min.js"></script>
+<script src="js/d3.js"></script>
+<script src="js/d3.min.js"></script>
+</head>
+
+<body>
+
+	<div class="chart-container"
+		style="position: relative; height: 35vh; width: 70vw">
+		<canvas id="chart"></canvas>
+	</div>
+
+	<script>
+		d3.csv('age-salary.csv').then(makeChart);
+
+		function makeChart(items) {
+
+			var ages = items.map(function(d) {
+				return d.age
+			});
+			var salary = items.map(function(d) {
+				return d.salary
+			});
+
+			var color1 = items.map(function(d) {
+				return "#32a852"
+			});
+			
+			var chart = new Chart('chart', {
+				type : 'bar',
+				data : {
+					labels : ages,
+					datasets : [ {
+						label : 'Salary',
+						data : salary,
+						backgroundColor : color1
+					}]
+				},
+				options : {
+					title : {
+						display : true,
+						text : 'Salary by age'
+					}
+				}
+			});
+		}
+	</script>
+</body>
+
+</html>

@@ -30,13 +30,16 @@
 			var sizeRatings = items.map(function(d) {
 				return d.size
 			});
-			var motivationRatings = items.map(function(d) {
-				return d.motivation
-			});
-			var complexityRating = items.map(function(d) {
+			var complexityRatings = items.map(function(d) {
 				return d.complexity
 			});
-
+			var meanMotivationRatings = items.map(function(d) {
+				return d.meanMotivation
+			});
+			var medianMotivationRatings = items.map(function(d) {
+				return d.medianMotivation
+			});
+			
 			var color1 = items.map(function(d) {
 				return "#32a852"
 			});
@@ -46,7 +49,10 @@
 			var color3 = items.map(function(d) {
 				return "#d1d14b"
 			});
-
+			var color4 = items.map(function(d) {
+				return "#f56642"
+			});
+			
 			var chart = new Chart('chart', {
 				type : 'bar',
 				data : {
@@ -56,13 +62,17 @@
 						data : sizeRatings,
 						backgroundColor : color1
 					}, {
-						label : 'Motivation',
-						data : motivationRatings,
+						label : 'Complexity',
+						data : complexityRatings,
 						backgroundColor : color2
 					}, {
-						label : 'Complexity',
-						data : complexityRating,
+						label : 'Mean Motivation',
+						data : meanMotivationRatings,
 						backgroundColor : color3
+					}, {
+						label : 'Median Motivation',
+						data : medianMotivationRatings,
+						backgroundColor : color4
 					} ]
 				},
 				options : {

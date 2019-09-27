@@ -13,7 +13,7 @@ import org.junit.Test;
 import local.java.excercise.composition.EntityGenerator;
 import local.java.model.Company;
 import local.java.model.CompanyRateing;
-import local.java.model.RateingType;
+import local.java.model.company.rating.RatingType;
 
 /**
  * To generate company objects use

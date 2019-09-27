@@ -1,22 +1,21 @@
 package local.java.model;
 
-public class CompanyRateing implements Rateing {
+import local.java.model.company.rating.Rating;
+
+public class CompanyRateing {
 
 	private final String name;
-	private final Rateing size;
-	private final Rateing motivation;
-	private final Rateing complexity;
+	private final Rating size;
+	private final Rating complexity;
+	private final Rating meanMotivation;
+	private final Rating medianMotivation;
 
-	public CompanyRateing(String name, Rateing size, Rateing motivation, Rateing complexity) {
+	private CompanyRateing(String name, Rating size, Rating complexity, Rating meanMotivation, Rating medianMotivation) {
 		this.name = name;
 		this.size = size;
-		this.motivation = motivation;
 		this.complexity = complexity;
-	}
-
-	@Override
-	public double getGrade() {
-		return (size.getGrade() + motivation.getGrade() + complexity.getGrade()) / 3;
+		this.meanMotivation = meanMotivation;
+		this.medianMotivation = medianMotivation;
 	}
 
 	public String getName() {
@@ -27,11 +26,56 @@ public class CompanyRateing implements Rateing {
 		return size.getGrade();
 	}
 
-	public double getMotivation() {
-		return motivation.getGrade();
-	}
-
 	public double getComplexity() {
 		return complexity.getGrade();
+	}
+
+	public double getMeanMotivation() {
+		return meanMotivation.getGrade();
+	}
+
+	public double getMedianMotivation() {
+		return medianMotivation.getGrade();
+	}
+	
+	public static Builder builder() {
+		return new Builder();
+	}
+
+	public static class Builder {
+		private String name;
+		private Rating size;
+		private Rating complexity;
+		private Rating meanMotivation;
+		private Rating medianMotivation;
+
+		public CompanyRateing build() {
+			return new CompanyRateing(name, size, complexity, meanMotivation, medianMotivation);
+		}
+
+		public Builder name(String name) {
+			this.name = name;
+			return this;
+		}
+
+		public Builder size(Rating size) {
+			this.size = size;
+			return this;
+		}
+
+		public Builder complexity(Rating complexity) {
+			this.complexity = complexity;
+			return this;
+		}
+
+		public Builder meanMotivation(Rating meanMotivation) {
+			this.meanMotivation = meanMotivation;
+			return this;
+		}
+
+		public Builder medianMotivation(Rating medianMotivation) {
+			this.medianMotivation = medianMotivation;
+			return this;
+		}
 	}
 }
