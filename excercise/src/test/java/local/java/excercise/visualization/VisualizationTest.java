@@ -2,12 +2,14 @@ package local.java.excercise.visualization;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import org.junit.Test;
 
@@ -29,11 +31,10 @@ public class VisualizationTest {
 		List<Employee> employees = Aggregator.getCompanyEmployees(company).stream()
 				.sorted((c1, c2) -> c1.getSalary().compareTo(c2.getSalary())).collect(Collectors.toList());
 
-		List<String> lines = new ArrayList<>();
-		lines.add("name,salary");
-		lines.addAll(employees.stream().map(e -> {
-			return String.format("%s %s,%.2f", e.getFirstName(), e.getLastName(), e.getSalary());
-		}).collect(Collectors.toList()));
+		List<String> lines = Stream
+				.concat(Arrays.asList("name,salary".split(",")).stream(), employees.stream().map(e -> {
+					return String.format("%s %s,%.2f", e.getFirstName(), e.getLastName(), e.getSalary());
+				})).collect(Collectors.toList());
 
 		String path = new StringBuilder().append(resourceRootPath()).append(File.separator).append("web")
 				.append(File.separator).append("salary.csv").toString();
@@ -50,11 +51,9 @@ public class VisualizationTest {
 		List<Employee> employees = Aggregator.getCompanyEmployees(company).stream()
 				.sorted((c1, c2) -> c1.getAge().compareTo(c2.getAge())).collect(Collectors.toList());
 
-		List<String> lines = new ArrayList<>();
-		lines.add("name,age");
-		lines.addAll(employees.stream().map(e -> {
-			return String.format("%s %s,%d", e.getFirstName(), e.getLastName(), e.getAge());
-		}).collect(Collectors.toList()));
+		List<String> lines = Stream.concat(Arrays.asList("name,age".split(",")).stream(), employees.stream().map(e -> {
+			return String.format("%s %s,%.2f", e.getFirstName(), e.getLastName(), e.getSalary());
+		})).collect(Collectors.toList());
 
 		String path = new StringBuilder().append(resourceRootPath()).append(File.separator).append("web")
 				.append(File.separator).append("age.csv").toString();
@@ -78,12 +77,12 @@ public class VisualizationTest {
 					.medianMotivation(RatingType.MOTIVATION_MEDIAN.createFor(c, companies)).build();
 		}).collect(Collectors.toList());
 
-		List<String> lines = new ArrayList<>();
-		lines.add("name,size,complexity,meanMotivation,medianMotivation");
-		lines.addAll(rateings
-				.stream().map(cr -> String.format("%s,%.2f,%.2f,%.2f,%.2f", cr.getName(), cr.getSize(),
-						cr.getComplexity(), cr.getMeanMotivation(), cr.getMedianMotivation()))
-				.collect(Collectors.toList()));
+		List<String> lines = Stream
+				.concat(Arrays.asList("name,size,complexity,meanMotivation,medianMotivation".split(",")).stream(),
+						rateings.stream()
+								.map(cr -> String.format("%s,%.2f,%.2f,%.2f,%.2f", cr.getName(), cr.getSize(),
+										cr.getComplexity(), cr.getMeanMotivation(), cr.getMedianMotivation())))
+				.collect(Collectors.toList());
 
 		String path = new StringBuilder().append(resourceRootPath()).append(File.separator).append("web")
 				.append(File.separator).append("ratings.csv").toString();
