@@ -1,6 +1,6 @@
 package local.java.model;
 
-public class Employee {
+public class Employee implements Comparable {
 
 	private String firstName;
 	private String lastName;
@@ -65,4 +65,24 @@ public class Employee {
 	public void setSalary(Double salary) {
 		this.salary = salary;
 	}
+
+
+
+	@Override
+	public int compareTo(Object o) {
+		
+		double firstSalaty = this.salary;
+		Employee e = (Employee) o;
+		double secondSalary =e.salary;
+		
+		if (firstSalaty < secondSalary)
+			return -1;
+		else if (firstSalaty > secondSalary)
+			return +1;
+		else
+			return 0;
+	
+	}
+	
+
 }

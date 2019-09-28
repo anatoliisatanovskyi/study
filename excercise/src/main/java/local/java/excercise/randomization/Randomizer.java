@@ -32,13 +32,14 @@ public class Randomizer {
 		return Math.round(((r.nextDouble() * max - min) + min) * mult) / mult;
 
 	}
+
 // ******************
 	// Do not Work :(
 	public static double randomizeDouble(int precision) {
 
 		return randomizeDoule(0, Double.MAX_VALUE, precision);
 	}
-	
+
 	// ****************
 
 	public static boolean randomBoolean() {
@@ -46,26 +47,24 @@ public class Randomizer {
 		return r.nextBoolean();
 
 	}
-	
+
 	public static UUID randomUUID() {
-		
+
 		return UUID.randomUUID();
 	}
-	
+
 	public static Sex generateSex() {
-		int a = randomizeInteger(0,1);
-		if (a == 0) return Sex.FEMALE;
+boolean sexb = 	randomBoolean();
+		if (sexb) return Sex.FEMALE;
 		else return Sex.MALE;
-		
 	
-	}
-	
-	public static Queue queueGenerator( List l) {
-		
-		Queue queue = new PriorityQueue(l);
-		
-		return queue;
 	}
 
+	public static Queue queueGenerator(List l) {
+
+		Queue queue = new PriorityQueue(l);
+
+		return queue;
+	}
 
 }

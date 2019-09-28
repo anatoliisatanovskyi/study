@@ -1,47 +1,67 @@
 package local.java.excercise.composition;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 import local.java.excercise.filesio.ResourceReader;
 import local.java.excercise.randomization.Randomizer;
 import local.java.model.Company;
 import local.java.model.Department;
 import local.java.model.Employee;
+import local.java.model.SourceConstant;
 
 public class EntityGenerator {
+	
+	public static Employee generateEmployee(Queue<String> firstNames, Queue<String> lastNames) {
 
-	public static Employee generateEmployee(Queue <String> firstNames, Queue<String> lastNames) {
-		
-		
-		Employee employee = new Employee(firstNames.poll(), lastNames.poll(), Randomizer.generateSex(), Randomizer.randomizeInteger(20, 60), Randomizer.randomizeDoule(500, 7000, 2));
-		
+		Employee employee = new Employee(QueueGenerator.pollfirstNames(), QueueGenerator.pollLastNames(),
+				Randomizer.generateSex(), Randomizer.randomizeInteger(20, 60), Randomizer.randomizeDoule(500, 7000, 2));
+
 		return employee;
-			
+
 	}
 
-	public static Department generateDepartment(Queue <String> departmentName,int employees) {
-	String path_firstNames = "filesio/first_names.txt";
-	String path_lastNames = "filesio/last_names.txt";
+	public static Department generateDepartment(Queue<String> departmentNames, Queue<String> firstNames,
+			Queue<String> lastNames) {
 		List emploeesList = new ArrayList();
-		Queue qFirstNames = Randomizer.queueGenerator(ResourceReader.readAsList(path_firstNames));
-		Queue qLastNames = Randomizer.queueGenerator(ResourceReader.readAsList(path_lastNames));
-for ( int i = 0; i < employees; i++) {
-	emploeesList.add(generateEmployee(qFirstNames, qLastNames ));
+
+		int employees = Randomizer.randomizeInteger(2, 5);
+		for (int i = 0; i < employees; i++) {
+			emploeesList.add(generateEmployee(firstNames, lastNames));
 		}
-		
-		Department department = new Department(departmentName.poll(), emploeesList  );
+
+		Department department = new Department(QueueGenerator.poolDepNames(), emploeesList);
 
 		return department;
 	}
 
-	public static Company generateCompany(List<Department> departmentEmployees) {
-		String path = "filesio/company_names.txt";
-    List companyList = ResourceReader.readAsList(path);
-    Queue queue = Randomizer.queueGenerator(companyList);
-	
-		
-		Company Mycompany = new Company((String)queue.poll(), departmentEmployees );		
-		
+	public static List<Company> generateCompanies() {
+		int count = Randomizer.randomizeInteger(1, 2);
+		Queue<String> companyNames = new LinkedList<>();
+		Queue<String> departmentNames = new LinkedList<>();
+		Queue<String> qFirstNames = new LinkedList<>();
+		Queue<String> qLastNames = new LinkedList<>();
+		List<Company> companies = new ArrayList<>();
+		for (int i = 0; i < count; i++) {
+			companies.add(generateCompany(companyNames, departmentNames, qFirstNames, qLastNames));
+		}
+		return companies;
+	}
+
+	private static Company generateCompany(Queue<String> companyNames, Queue<String> departmentNames,
+			Queue<String> qFirstNames, Queue<String> qLastNames) {
+
+		int count = Randomizer.randomizeInteger(1, 3);
+		List<Department> departments = new ArrayList<>();
+
+		for (int i = 0; i < count; i++) {
+			departments.add(generateDepartment(departmentNames, qFirstNames, qLastNames));
+
+		}
+		Company Mycompany = new Company(QueueGenerator.pollCompanyNames(), departments);
+
 		return Mycompany;
 	}
 

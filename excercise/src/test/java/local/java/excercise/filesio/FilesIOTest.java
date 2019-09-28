@@ -2,6 +2,8 @@ package local.java.excercise.filesio;
 
 import org.junit.Test;
 
+import local.java.model.SourceConstant;
+
 import static org.junit.Assert.*;
 
 import java.io.BufferedReader;
@@ -22,15 +24,13 @@ public class FilesIOTest {
 	@Test
 	public void testReadAndStoreFirstNames() throws Exception {
 
-		String path = "filesio/first_names.txt";
-
-		List actual = rr.readAsList(path);
+		List actual = rr.readAsList(SourceConstant.FIRST_NAMES);
 
 		assertNotNull(actual);
 		assertTrue(!actual.isEmpty());
 		assertFalse(actual.isEmpty()); // or like this
-		BufferedReader br = new BufferedReader(
-				new InputStreamReader(ResourceReader.class.getClassLoader().getResourceAsStream(path)));
+		BufferedReader br = new BufferedReader(new InputStreamReader(
+				ResourceReader.class.getClassLoader().getResourceAsStream(SourceConstant.FIRST_NAMES)));
 		long linesCount = 0;
 		while (br.readLine() != null)
 			linesCount++;
@@ -63,12 +63,11 @@ public class FilesIOTest {
 	@Test
 	public void testReadAndStoreLastNames() throws Exception {
 		// TODO: implement
-		String path = "filesio/last_names.txt";
-		List actual = rr.readAsList(path);
+		List actual = rr.readAsList(SourceConstant.LAST_NAMES);
 		assertNotNull(actual);
 		assertFalse(actual.isEmpty());
 		BufferedReader br = new BufferedReader(
-				new InputStreamReader(ResourceReader.class.getClassLoader().getResourceAsStream(path)));
+				new InputStreamReader(ResourceReader.class.getClassLoader().getResourceAsStream(SourceConstant.LAST_NAMES)));
 		long linesCount = 0;
 		while (br.readLine() != null)
 			linesCount++;
@@ -90,12 +89,11 @@ public class FilesIOTest {
 
 	@Test
 	public void testReadCompanyNames() throws Exception {
-		String path = "filesio/company_names.txt";
-		List actual = rr.readAsList(path);
+		List actual = rr.readAsList(SourceConstant.COMPANY_NAMES);
 		assertNotNull(actual);
 		assertFalse(actual.isEmpty());
 		BufferedReader br = new BufferedReader(
-				new InputStreamReader(ResourceReader.class.getClassLoader().getResourceAsStream(path)));
+				new InputStreamReader(ResourceReader.class.getClassLoader().getResourceAsStream(SourceConstant.COMPANY_NAMES)));
 		long linesCount = 0;
 		while (br.readLine() != null)
 			linesCount++;
@@ -117,12 +115,11 @@ public class FilesIOTest {
 
 	@Test
 	public void testReadDepartmentNames() throws Exception {
-		String path = "filesio/department_names.txt";
-		List actual = rr.readAsList(path);
+		List actual = rr.readAsList(SourceConstant.DEPARTMENT_NAMES);
 		assertNotNull(actual);
 		assertFalse(actual.isEmpty());
 		BufferedReader br = new BufferedReader(
-				new InputStreamReader(ResourceReader.class.getClassLoader().getResourceAsStream(path)));
+				new InputStreamReader(ResourceReader.class.getClassLoader().getResourceAsStream(SourceConstant.DEPARTMENT_NAMES)));
 		long linesCount = 0;
 		while (br.readLine() != null)
 			linesCount++;

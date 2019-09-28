@@ -1,6 +1,19 @@
 package local.java.excercise.aggregation;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
 import org.junit.Test;
+
+import local.java.excercise.composition.EntityGenerator;
+import local.java.model.Company;
+import local.java.model.Department;
+import local.java.model.Employee;
+import local.java.model.Sex;
+import local.java.model.Sex.*;
 
 /**
  * To generate company objects use
@@ -13,8 +26,28 @@ public class AggregationTest {
 	 * that will return count of all employees in all company departments. Method
 	 * must take in one parameter: Company company.
 	 */
+
 	@Test
 	public void testEmployeeCount() throws Exception {
+
+		int actual;
+		List<Company> companies = EntityGenerator.generateCompanies();
+		for (Company c : companies) {
+			int expected = 0;
+			Collection<Department> depColection = c.getDepartments();
+			for (Department d : depColection) {
+				Collection<Employee> employeeCol = d.getEmployees();
+				Iterator itr = employeeCol.iterator();
+
+				while (itr.hasNext()) {
+					itr.next();
+					expected++;
+				}
+
+			}
+			actual = Aggregator.employeeCount(c);
+			assertEquals(expected, actual);
+		}
 
 	}
 
@@ -25,6 +58,10 @@ public class AggregationTest {
 	 */
 	@Test
 	public void testEmployeeSalaryMax() throws Exception {
+		List<Company> companies = EntityGenerator.generateCompanies();
+		for (Company c : companies) {
+			System.out.println(Aggregator.maxSalary(c));
+		}
 
 	}
 
@@ -35,7 +72,10 @@ public class AggregationTest {
 	 */
 	@Test
 	public void testEmployeeSalaryMin() throws Exception {
-
+		List<Company> companies = EntityGenerator.generateCompanies();
+		for (Company c : companies) {
+			System.out.println(Aggregator.minSalary(c));
+		}
 	}
 
 	/**
@@ -45,7 +85,10 @@ public class AggregationTest {
 	 */
 	@Test
 	public void testEmployeeSalaryAverage() throws Exception {
-
+		List<Company> companies = EntityGenerator.generateCompanies();
+		for (Company c : companies) {
+			System.out.println("The avarage salary in company " + c.getName() + " is: " + Aggregator.avarageSalary(c));
+		}
 	}
 
 	/**
@@ -56,7 +99,11 @@ public class AggregationTest {
 	 */
 	@Test
 	public void testEmployeeSalaryAverageBySex() throws Exception {
-
+		List<Company> companies = EntityGenerator.generateCompanies();
+		for (Company c : companies) {
+			System.out.println(
+					"The avarage salary in company " + c.getName() + " for:" + Aggregator.avarageSalarySex(c, Sex.MALE));
+		}
 	}
 
 	/**
