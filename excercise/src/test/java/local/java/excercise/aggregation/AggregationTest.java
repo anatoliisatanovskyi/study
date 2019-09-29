@@ -2,7 +2,9 @@ package local.java.excercise.aggregation;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,7 +15,6 @@ import local.java.model.Company;
 import local.java.model.Department;
 import local.java.model.Employee;
 import local.java.model.Sex;
-import local.java.model.Sex.*;
 
 /**
  * To generate company objects use
@@ -102,7 +103,7 @@ public class AggregationTest {
 		List<Company> companies = EntityGenerator.generateCompanies();
 		for (Company c : companies) {
 			System.out.println(
-					"The avarage salary in company " + c.getName() + " for:" + Aggregator.avarageSalarySex(c, Sex.MALE));
+					"The avarage salary in company " + c.getName() + " for: " + Sex.FEMALE.toString() + " " + Aggregator.avarageSalarySex(c, Sex.MALE));
 		}
 	}
 
@@ -113,20 +114,30 @@ public class AggregationTest {
 	 * List<Company>. Method must return Map<String,Integer> where key is department
 	 * name and value is employee count.
 	 */
+	//Understand onlu dep = > count all employee
 	@Test
 	public void testEmployeeCountByDepartment() throws Exception {
-
+		List<Company> companies = EntityGenerator.generateCompanies();
+		for (Company c : companies) {
+		Aggregator.countEmployeeInDepartaments(c);
+	}
 	}
 
 	/**
 	 * In class local.java.excercise.aggregation.Aggregator create a public static
 	 * method that will look through a list of companies and find maximum salary for
-	 * specific department. Method must take in two parameters: Company company,
+	 * specific department. Method must take in two parameters: List<Company> companies,
 	 * String departmentName. Method must return int for max salary.
 	 */
-	@Test
+//	Map<String, List<Department>>
+//	map.get(searchName) -> departmentlist
+ 	@Test
 	public void testEmployeeSalaryMaxByDepartment() throws Exception {
-
+ 		List<Company> companies = EntityGenerator.generateCompanies();
+		for (Company c : companies) {
+		Aggregator.maxSallaryInDepartments(c);
+	}
+ 		
 	}
 
 	/**
@@ -137,6 +148,18 @@ public class AggregationTest {
 	 */
 	@Test
 	public void testEmployeeSalaryMinByDepartment() throws Exception {
-
+		List<Company> companies = EntityGenerator.generateCompanies();
+		for (Company c : companies) {
+			Aggregator.minSallaryInDepartments(c).entrySet().forEach(System.out::println);
+	}
+	}
+	
+	@Test
+	public void testToliaMinSallaryIndDepartments() throws Exception {
+		String departmentName = "IT";
+		List<Company> companies = EntityGenerator.generateCompanies();
+		for (Company c : companies) {
+		System.out.println("In company " + c.getName() + " minimum salary in " +departmentName + ": " + Aggregator.TolminSallaryInDepartments(c, "Accounting"));
+	}
 	}
 }

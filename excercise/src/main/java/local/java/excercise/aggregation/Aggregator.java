@@ -18,33 +18,77 @@ public class Aggregator {
 		}
 		return employeeCount;
 	}
-// need to implement without ArrayList
+
+	public static List<Employee> getEmployees(Company company) {
+		return getEmployees(company.getDepartments());
+	}
+
+	public static List<Employee> getEmployees(Collection<Department> departments) {
+		List<Employee> employees = new ArrayList<>();
+		for (Department d : departments) {
+			employees.addAll(d.getEmployees());
+		}
+		return employees;
+	}
+	
 	public static Employee maxSalary(Company company) {
-		Employee winner = null;
-		List<Double> salaryList = new ArrayList();
-		Collection<Department> depCpllectiom = company.getDepartments();
-		for (Department d : depCpllectiom) {
-			Collection<Employee> employeeCollection = d.getEmployees();
-			TreeSet allEmployee = new 	TreeSet(employeeCollection);
-			winner = (Employee) allEmployee.last();
-		}
+		return maxSalary(company.getDepartments());
+	}
 
-		return winner;
+	public static Employee maxSalary(Collection<Department> departments) {
+		TreeSet<Employee> set = new TreeSet<Employee>(new Comparator<Employee>() {
+			@Override
+			public int compare(Employee o1, Employee o2) {
+				return o1.getSalary().compareTo(o2.getSalary());
+			}
+		});
+		set.addAll(getEmployees(departments));
+
+		return set.last();
 	}
 	
+	public static double maxSalaryInDepartment(Department d) {
+		TreeSet<Employee> set = new TreeSet<Employee>(new Comparator<Employee>() {
+			@Override
+			public int compare(Employee o1, Employee o2) {
+				return o1.getSalary().compareTo(o2.getSalary());
+			}
+		});
+		
+		set.addAll(d.getEmployees());
+
+		return set.last().getSalary();	
+	}
+	
+	public static double minSalaryInDepartment(Department d) {
+		TreeSet<Employee> set = new TreeSet<Employee>(new Comparator<Employee>() {
+			@Override
+			public int compare(Employee o1, Employee o2) {
+				return o1.getSalary().compareTo(o2.getSalary());
+			}
+		});
+		
+		set.addAll(d.getEmployees());
+
+		return set.first().getSalary();	
+	}
+
+
 	public static Employee minSalary(Company company) {
-		Employee winner = null;
-		List<Double> salaryList = new ArrayList();
-		Collection<Department> depCpllectiom = company.getDepartments();
-		for (Department d : depCpllectiom) {
-			Collection<Employee> employeeCollection = d.getEmployees();
-			TreeSet allEmployee = new 	TreeSet(employeeCollection);
-			winner = (Employee) allEmployee.first();
-		}
+		TreeSet<Employee> set = new TreeSet<Employee>(new Comparator<Employee>() {
+			@Override
+			public int compare(Employee o1, Employee o2) {
+				return o1.getSalary().compareTo(o2.getSalary());
+			}
+		});
+		
+		set.addAll(getEmployees(company));
 
-		return winner;
+		return set.first();
+	
 	}
 	
+
 	public static double avarageSalary(Company company) {
 		int allSalary = 0;
 		int workersCount = 0;
@@ -52,17 +96,16 @@ public class Aggregator {
 		Collection<Department> depCpllectiom = company.getDepartments();
 		for (Department d : depCpllectiom) {
 			Collection<Employee> employeeCollection = d.getEmployees();
-			for ( Employee e: employeeCollection) {
+			for (Employee e : employeeCollection) {
 				allSalary += e.getSalary();
 				workersCount++;
 			}
-			
+
 		}
 
-		return allSalary / workersCount ;
+		return allSalary / workersCount;
 	}
-	
-	
+
 	public static double avarageSalarySex(Company company, Sex sex) {
 		int allSalary = 0;
 		int workersCount = 0;
@@ -70,19 +113,64 @@ public class Aggregator {
 		Collection<Department> depCpllectiom = company.getDepartments();
 		for (Department d : depCpllectiom) {
 			Collection<Employee> employeeCollection = d.getEmployees();
-			for ( Employee e: employeeCollection) {
+			for (Employee e : employeeCollection) {
 				if (e.getSex() == sex) {
 					allSalary += e.getSalary();
 					workersCount++;
 				}
-				
+
 			}
-			
+
 		}
 
-		return allSalary / workersCount ;
+		return allSalary / workersCount;
 	}
 	
+	public static Map countEmployeeInDepartaments(Company company) {
+	Map<String, Integer> map = new HashMap();
+	List<Department> d = new ArrayList(company.getDepartments());
+	for( Department dep: d) {
+		int size = 0;
+		size = dep.getEmployees().size();
+		map.put(dep.getName(), size);
+	}
+	map.entrySet().forEach(System.out::println);
+		
+		return map;
+	}
 	
+	public static Map maxSallaryInDepartments(Company company) {
+		
+		Map<String, Double> map = new HashMap();
+		List<Department> d = new ArrayList(company.getDepartments());
+		for( Department dep: d) {
+			double maxSalary =0;
+			maxSalary = maxSalaryInDepartment(dep);
+			map.put(dep.getName(), maxSalary);
+		}
+		map.entrySet().forEach(System.out::println);
+			
+			return map;
+	}
+	
+public static Map minSallaryInDepartments(Company company) {
+		
+		Map<String, Double> map = new HashMap();
+		List<Department> d = new ArrayList(company.getDepartments());
+		for( Department dep: d) {
+			double minSalary =0;
+			minSalary = minSalaryInDepartment(dep);
+			map.put(dep.getName(), minSalary);
+		}		
+			return map;
+	}
+
+public static int TolminSallaryInDepartments(Company company, String departmentName) {
+	Map<String, Double> map = (minSallaryInDepartments(company));
+	if(map.get(departmentName) == null ) {
+		return 0;
+	}
+	else return (int) Math.round(map.get(departmentName)) ;
+}
 
 }

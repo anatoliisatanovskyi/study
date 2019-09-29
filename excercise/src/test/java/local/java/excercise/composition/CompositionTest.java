@@ -1,10 +1,15 @@
 package local.java.excercise.composition;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -12,6 +17,7 @@ import local.java.excercise.aggregation.Aggregator;
 import local.java.model.Company;
 import local.java.model.Department;
 import local.java.model.Employee;
+import local.java.model.Sex;
 
 public class CompositionTest {
 
@@ -88,5 +94,92 @@ public class CompositionTest {
 		}
 		assertFalse(trig);
 
+	}
+
+	@Test
+	public void testName() throws Exception {
+		Employee e1 = EntityGenerator.generateEmployee(new LinkedList<>(), new LinkedList<>());
+		e1.setAge(20);
+		e1.setSex(Sex.FEMALE);
+		Employee e2 = EntityGenerator.generateEmployee(new LinkedList<>(), new LinkedList<>());
+		e2.setAge(20);
+		e2.setSex(Sex.MALE);
+		Employee e3 = EntityGenerator.generateEmployee(new LinkedList<>(), new LinkedList<>());
+		e3.setAge(20);
+		e3.setSex(Sex.FEMALE);
+		List<Employee> employees = Arrays.asList(e1, e2, e3);
+		Map<SexAndAge, List<Employee>> map = new HashMap<>();
+		Map<Sex, Map<Integer, List<Employee>>> map2 = new HashMap<>();
+		for(Employee e : employees) {
+			SexAndAge compound = new SexAndAge(e);
+			map.putIfAbsent(compound, new ArrayList<>());
+			map.get(compound).add(e);
+			
+			map2.putIfAbsent(e.getSex(), new HashMap<>());
+			map2.get(e.getSex()).putIfAbsent(e.getAge(), new ArrayList<>());
+			map2.get(e.getSex()).get(e.getAge()).add(e);
+		}
+		
+		map.entrySet().forEach(System.out::println);
+		System.out.println("***************");
+		map2.entrySet().forEach(System.out::println);
+	}
+
+	// MALE -> 20 - > list
+	class SexAndAge {
+
+		Sex sex;
+		Integer age;
+
+		public SexAndAge(Employee employee) {
+			this(employee.getSex(), employee.getAge());
+		}
+
+		public SexAndAge(Sex sex, Integer age) {
+			this.sex = sex;
+			this.age = age;
+		}
+
+		@Override
+		public String toString() {
+			return "SexAndAge [sex=" + sex + ", age=" + age + "]";
+		}
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + getEnclosingInstance().hashCode();
+			result = prime * result + ((age == null) ? 0 : age.hashCode());
+			result = prime * result + ((sex == null) ? 0 : sex.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			SexAndAge other = (SexAndAge) obj;
+			if (!getEnclosingInstance().equals(other.getEnclosingInstance()))
+				return false;
+			if (age == null) {
+				if (other.age != null)
+					return false;
+			} else if (!age.equals(other.age))
+				return false;
+			if (sex != other.sex)
+				return false;
+			return true;
+		}
+
+		private CompositionTest getEnclosingInstance() {
+			return CompositionTest.this;
+		}
+
+		
 	}
 }
