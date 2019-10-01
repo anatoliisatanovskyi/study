@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -117,11 +118,22 @@ public class AggregationTest {
 	//Understand onlu dep = > count all employee
 	@Test
 	public void testEmployeeCountByDepartment() throws Exception {
-		List<Company> companies = EntityGenerator.generateCompanies();
-		for (Company c : companies) {
-		Aggregator.countEmployeeInDepartaments(c);
+		List<Company> countEmployeeInDepartaments = EntityGenerator.generateCompanies();
+		Aggregator.countEmployeeInDepartaments(countEmployeeInDepartaments);
+		
+//		List l = new ArrayList();
+//		for( int i = 0; i < 10; i++) {
+//			l.add(i);
+//			l.add(2);
+//			System.out.println(l);
+//		}
+//		Set set = new HashSet();
+//		set.addAll(l);
+//		System.out.println(set);
+		
+		
 	}
-	}
+
 
 	/**
 	 * In class local.java.excercise.aggregation.Aggregator create a public static

@@ -27,7 +27,7 @@ public class EntityGenerator {
 			Queue<String> lastNames) {
 		List emploeesList = new ArrayList();
 
-		int employees = Randomizer.randomizeInteger(2, 15);
+		int employees = Randomizer.randomizeInteger(40, 60);
 		for (int i = 0; i < employees; i++) {
 			emploeesList.add(generateEmployee(firstNames, lastNames));
 		}
@@ -38,7 +38,7 @@ public class EntityGenerator {
 	}
 
 	public static List<Company> generateCompanies() {
-		int count = Randomizer.randomizeInteger(1, 9);
+		int count = Randomizer.randomizeInteger(4, 10);
 		Queue<String> companyNames = new LinkedList<>();
 		Queue<String> departmentNames = new LinkedList<>();
 		Queue<String> qFirstNames = new LinkedList<>();
@@ -53,7 +53,7 @@ public class EntityGenerator {
 	private static Company generateCompany(Queue<String> companyNames, Queue<String> departmentNames,
 			Queue<String> qFirstNames, Queue<String> qLastNames) {
 
-		int count = Randomizer.randomizeInteger(1, 9);
+		int count = Randomizer.randomizeInteger(10, 15);
 		List<Department> departments = new ArrayList<>();
 
 		for (int i = 0; i < count; i++) {
