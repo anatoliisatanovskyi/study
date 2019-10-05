@@ -133,7 +133,7 @@ public class Aggregator {
 				Collection<Employee> employee = dep.getEmployees();
 				for (Employee e : employee) {
 					map.putIfAbsent(dep.getName(), new ArrayList<>());
-					map.get(dep.getName()).add(e.getFirstName() + " " + e.getLastName());
+					map.get(dep.getName()).add(e.getFirstName());
 				}
 			}
 		}

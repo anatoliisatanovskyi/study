@@ -41,6 +41,11 @@ public class Employee implements Comparable {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+	
+	public String getFullName() {
+		return this.firstName + " " + this.lastName;
+		
+	}
 
 	public Sex getSex() {
 		return sex;

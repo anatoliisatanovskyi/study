@@ -1,6 +1,13 @@
 package local.java.excercise.datapresentation;
 
+import java.util.*;
+
 import org.junit.Test;
+
+import local.java.excercise.aggregation.Aggregator;
+import local.java.excercise.composition.EntityGenerator;
+import local.java.model.Company;
+import local.java.model.Employee;
 
 /**
  * To generate company objects use
@@ -16,7 +23,8 @@ public class DataPresentationTest {
 	 */
 	@Test
 	public void testGetDepartmentNames() throws Exception {
-
+		List<Company> company = EntityGenerator.generateCompanies();
+		System.out.println(CompanyView.fetchDepartmentNames(company));
 	}
 
 	/**
@@ -27,7 +35,8 @@ public class DataPresentationTest {
 	 */
 	@Test
 	public void testGetUniqueDepartmentNames() throws Exception {
-
+		List<Company> company = EntityGenerator.generateCompanies();
+		CompanyView.fetchUniqueDepartmentNames(company);
 	}
 
 	/**
@@ -38,6 +47,8 @@ public class DataPresentationTest {
 	 */
 	@Test
 	public void testGetEmployeeFullNamesInAlphabeticalOrder() throws Exception {
+		List<Company> company = EntityGenerator.generateCompanies();
+		System.out.println(CompanyView.fetchEmployeeFullNamesInAlphabeticalOrder(company));
 
 	}
 
@@ -58,7 +69,16 @@ public class DataPresentationTest {
 	 */
 	@Test
 	public void testGetEmployeesWithSalaryFilter() throws Exception {
+		Map<String, List<Employee>> map = new HashMap<>();
+		List<Company> company = EntityGenerator.generateCompanies();
+		for (Company c : company) {
+			map.putIfAbsent(c.getName(), new ArrayList());
+			map.get(c.getName()).addAll(CompanyView.filterByAge(Aggregator.getEmployees(c), 22));
+		}
 
+		System.out.println(map);
+
+		// how to basic :) make readable output
 	}
 
 	/**
@@ -70,6 +90,18 @@ public class DataPresentationTest {
 	 */
 	@Test
 	public void testGetMaleEmployeesWithAgeFilter() throws Exception {
+
+		Map<String, Integer> map = new HashMap<>();
+
+		List<Company> company = EntityGenerator.generateCompanies();
+		for (Company c : company) {
+			Integer b = CompanyView.filterByMaleAgeGreaterThan(Aggregator.getEmployees(c), 50).size();
+
+			map.putIfAbsent(c.getName(), b);
+
+		}
+
+		System.out.println(map);
 
 	}
 
@@ -85,6 +117,15 @@ public class DataPresentationTest {
 	@Test
 	public void testGetFemaleEmployeesWithDepartmentFilter() throws Exception {
 
+		List<Company> company = EntityGenerator.generateCompanies();
+		for (Company c : company) {
+			System.out.println("In company " + c.getName() + " we have: ");
+			// System.out.println(CompanyView.filterFemaleInDepartment(c, "IT"));
+			for (Employee e : CompanyView.filterFemaleInDepartment(c, "IT")) {
+				System.out.println(e);
+			}
+		}
+
 	}
 
 	/**
@@ -98,7 +139,9 @@ public class DataPresentationTest {
 	 */
 	@Test
 	public void testGroupDepartmentCountByCompany() throws Exception {
-
+		List<Company> company = EntityGenerator.generateCompanies();
+		System.out.println(CompanyView.groupDepartmentCountByCompany(company));
+		System.out.println(CompanyView.fetchDepartmentNames(company));
 	}
 
 	/**
@@ -110,6 +153,8 @@ public class DataPresentationTest {
 	 */
 	@Test
 	public void testGroupDepartmentNamesByCompany() throws Exception {
+
+		System.out.println(CompanyView.groupDepartmentNamesByCompany(EntityGenerator.generateCompanies()));
 
 	}
 
@@ -124,6 +169,7 @@ public class DataPresentationTest {
 	 */
 	@Test
 	public void testGroupEmployeeCountByDepartment() throws Exception {
+		System.out.println(CompanyView.groupEmployeeCountByDepartment(EntityGenerator.generateCompanies()));
 
 	}
 
@@ -135,7 +181,7 @@ public class DataPresentationTest {
 	 */
 	@Test
 	public void testGroupEmployeeCountByAge() throws Exception {
-
+		System.out.println(CompanyView.groupEmployeeCountByAge(EntityGenerator.generateCompanies()));
 	}
 
 	/**
@@ -147,7 +193,7 @@ public class DataPresentationTest {
 	 */
 	@Test
 	public void testGroupEmployeesByDepartment() throws Exception {
-
+		System.out.println(CompanyView.groupEmployeesByDepartment(EntityGenerator.generateCompanies()));
 	}
 
 	/**
@@ -161,6 +207,8 @@ public class DataPresentationTest {
 	@Test
 	public void testGroupEmployeeCountBySexAndAgeUsingNestedMap() throws Exception {
 
+		System.out
+				.println(CompanyView.groupEmployeeCountBySexAndAgeUsingNestedMap(EntityGenerator.generateCompanies()));
 	}
 
 	/**
@@ -175,6 +223,28 @@ public class DataPresentationTest {
 	 */
 	@Test
 	public void testGroupEmployeeCountBySexAndAgeUsingCompoundKey() throws Exception {
-
+		System.out.println(
+				CompanyView.groupEmployeeCountBySexAndAgeUsingCompoundKey(EntityGenerator.generateCompanies()));
 	}
+
+	class Starter {
+
+		Condition<?> c;
+
+		void foo() {
+			c.start();
+		}
+	}
+
+	interface Condition<T> {
+		T doStuff();
+
+		void start();
+	}
+
+	@Test
+	public void myTest() throws Exception {
+		EmployeeMaleAgeCondition.test();
+	}
+
 }
