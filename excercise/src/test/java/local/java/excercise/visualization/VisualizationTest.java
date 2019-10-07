@@ -31,10 +31,11 @@ public class VisualizationTest {
 		List<Employee> employees = Aggregator.getCompanyEmployees(company).stream()
 				.sorted((c1, c2) -> c1.getSalary().compareTo(c2.getSalary())).collect(Collectors.toList());
 
-		List<String> lines = Stream
-				.concat(Arrays.asList("name,salary".split(",")).stream(), employees.stream().map(e -> {
-					return String.format("%s %s,%.2f", e.getFirstName(), e.getLastName(), e.getSalary());
-				})).collect(Collectors.toList());
+		List<String> lines = new ArrayList<>();
+		lines.add("name,salary");
+		lines.addAll(employees.stream().map(e -> {
+			return String.format("%s %s,%.2f", e.getFirstName(), e.getLastName(), e.getSalary());
+		}).collect(Collectors.toList()));
 
 		String path = new StringBuilder().append(resourceRootPath()).append(File.separator).append("web")
 				.append(File.separator).append("salary.csv").toString();
@@ -51,9 +52,11 @@ public class VisualizationTest {
 		List<Employee> employees = Aggregator.getCompanyEmployees(company).stream()
 				.sorted((c1, c2) -> c1.getAge().compareTo(c2.getAge())).collect(Collectors.toList());
 
-		List<String> lines = Stream.concat(Arrays.asList("name,age".split(",")).stream(), employees.stream().map(e -> {
-			return String.format("%s %s,%.2f", e.getFirstName(), e.getLastName(), e.getSalary());
-		})).collect(Collectors.toList());
+		List<String> lines = new ArrayList<>();
+		lines.add("name,age");
+		lines.addAll(employees.stream().map(e -> {
+			return String.format("%s %s,%d", e.getFirstName(), e.getLastName(), e.getAge());
+		}).collect(Collectors.toList()));
 
 		String path = new StringBuilder().append(resourceRootPath()).append(File.separator).append("web")
 				.append(File.separator).append("age.csv").toString();

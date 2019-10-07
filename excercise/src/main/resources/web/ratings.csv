@@ -1,6 +1,10 @@
-name,size,complexity,meanMotivation,medianMotivation
-Mudel,8.82,4.44,9.31,9.39
-Poder,10.00,0.00,9.97,9.52
-Suprafy,5.13,6.67,10.00,10.00
-Kwizzy,9.61,1.11,10.00,9.28
-Bonous,3.68,6.67,9.22,7.62
+name
+size
+complexity
+meanMotivation
+medianMotivation
+Subous,4.42,6.67,8.99,8.80
+Bonous,4.42,5.56,10.00,9.51
+Bellose,10.00,0.00,9.39,8.81
+Parape,2.63,6.67,9.52,10.00
+Uberible,9.26,2.22,9.77,9.40
