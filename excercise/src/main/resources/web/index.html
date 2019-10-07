@@ -1,0 +1,181 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<title>Charts</title>
+<link rel="stylesheet" href="css/styles.css?v=1.0">
+<script src="js/Chart.bundle.js"></script>
+<script src="js/Chart.bundle.min.js"></script>
+<script src="js/d3.js"></script>
+<script src="js/d3.min.js"></script>
+</head>
+
+<body>
+
+	<div class="chart-container"
+		style="position: relative; height: 35vh; width: 60vw">
+		<canvas id="chart1"></canvas>
+	</div>
+
+	<div style="margin-top: 300px"></div>
+
+	<div class="chart-container"
+		style="position: relative; height: 35vh; width: 60vw">
+		<canvas id="chart2"></canvas>
+	</div>
+
+	<div style="margin-top: 300px"></div>
+
+	<div class="chart-container"
+		style="position: relative; height: 35vh; width: 60vw">
+		<canvas id="chart3"></canvas>
+	</div>
+
+	<script>
+		doMakeAgeChart();
+		doMakeSalaryChart();
+		doMakeRatingsChart();
+
+		function doMakeAgeChart() {
+			d3.csv('age.csv').then(makeAgeChart);
+		}
+
+		function doMakeSalaryChart() {
+			d3.csv('salary.csv').then(makeSalaryChart);
+		}
+
+		function doMakeRatingsChart() {
+			d3.csv('ratings.csv').then(makeRatingsChart);
+		}
+
+		function makeAgeChart(items) {
+
+			var names = items.map(function(d) {
+				return d.name
+			});
+			var ages = items.map(function(d) {
+				return d.age
+			});
+
+			var color1 = items.map(function(d) {
+				return "#32a852"
+			});
+
+			var chart = new Chart('chart1', {
+				type : 'bar',
+				data : {
+					labels : names,
+					datasets : [ {
+						label : 'Age',
+						data : ages,
+						backgroundColor : color1
+					} ]
+				},
+				options : {
+					title : {
+						display : true,
+						text : 'Age'
+					}
+				}
+			});
+		}
+
+		function makeSalaryChart(items) {
+
+			var names = items.map(function(d) {
+				return d.name
+			});
+			var salaries = items.map(function(d) {
+				return d.salary
+			});
+
+			var color1 = items.map(function(d) {
+				return "#32a852"
+			});
+
+			var chart = new Chart('chart2', {
+				type : 'bar',
+				data : {
+					labels : names,
+					datasets : [ {
+						label : 'Salary',
+						data : salaries,
+						backgroundColor : color1
+					} ]
+				},
+				options : {
+					title : {
+						display : true,
+						text : 'Salary'
+					}
+				}
+			});
+		}
+
+		function makeRatingsChart(items) {
+
+			var companyNames = items.map(function(d) {
+				return d.name
+			});
+			var sizeRatings = items.map(function(d) {
+				return d.size
+			});
+			var complexityRatings = items.map(function(d) {
+				return d.complexity
+			});
+			var meanMotivationRatings = items.map(function(d) {
+				return d.meanMotivation
+			});
+			var medianMotivationRatings = items.map(function(d) {
+				return d.medianMotivation
+			});
+
+			var color1 = items.map(function(d) {
+				return "#32a852"
+			});
+			var color2 = items.map(function(d) {
+				return "#3961b8"
+			});
+			var color3 = items.map(function(d) {
+				return "#d1d14b"
+			});
+			var color4 = items.map(function(d) {
+				return "#f56642"
+			});
+
+			var chart = new Chart('chart3', {
+				type : 'bar',
+				data : {
+					labels : companyNames,
+					datasets : [ {
+						label : 'Size',
+						data : sizeRatings,
+						backgroundColor : color1
+					}, {
+						label : 'Complexity',
+						data : complexityRatings,
+						backgroundColor : color2
+					}, {
+						label : 'Mean Motivation',
+						data : meanMotivationRatings,
+						backgroundColor : color3
+					}, {
+						label : 'Median Motivation',
+						data : medianMotivationRatings,
+						backgroundColor : color4
+					} ]
+				},
+				options : {
+					title : {
+						display : true,
+						text : 'Ratings'
+					}
+				}
+			});
+		}
+	</script>
+</body>
+
+</html>
