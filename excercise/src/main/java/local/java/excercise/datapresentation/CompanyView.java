@@ -1,6 +1,7 @@
 package local.java.excercise.datapresentation;
 
 import java.util.ArrayList;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -26,6 +27,19 @@ public class CompanyView {
 			}
 		}
 		return checked;
+	}
+
+	public static List<Employee> filterByAgeFromToGender(Company company, int from, int to, Sex sex){
+		List<Employee> checked = new ArrayList<>();
+		EmployeeSexAgeComdotionFrom_To condition = new EmployeeSexAgeComdotionFrom_To(from, to, sex);
+		
+		for ( Department d: company.getDepartments()) {	
+			
+			checked.addAll(filterWith(d.getEmployees(), condition));
+	
+		}
+		return checked;
+		
 	}
 
 	public static List<Employee> filterByMaleAgeGreaterThan(Collection<Employee> employees, int minAge) {
@@ -216,7 +230,7 @@ public class CompanyView {
 					map.putIfAbsent(e.getSex(), new HashMap<Integer, Integer>());
 					if (map.containsKey(e.getSex())) {
 						if (map.get(e.getSex()).containsKey(e.getAge())) {
-							map.get(e.getSex()).put(e.getAge(), map.get(e.getSex()).get(e.getAge())+1);
+							map.get(e.getSex()).put(e.getAge(), map.get(e.getSex()).get(e.getAge()) + 1);
 						}
 
 					}

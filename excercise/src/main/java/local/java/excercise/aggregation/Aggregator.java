@@ -189,7 +189,7 @@ public class Aggregator {
 	public static Map minSallaryInDepartments(Company company) {
 
 		Map<String, Double> map = new HashMap();
-		List<Department> d = new ArrayList(company.getDepartments());
+		List<Department> d = new ArrayList<>(company.getDepartments());
 		for (Department dep : d) {
 			double minSalary = 0;
 			minSalary = minSalaryInDepartment(dep);

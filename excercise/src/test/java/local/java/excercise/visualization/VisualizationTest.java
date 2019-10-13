@@ -7,10 +7,30 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import local.java.excercise.composition.EntityGenerator;
+import local.java.excercise.datapresentation.CompanyView;
+import local.java.model.Company;
+import local.java.model.Sex;
+
 public class VisualizationTest {
 
 	private static final String SALARY_CSV = "salary.csv";
 	private static final String AGE_CSV = "age.csv";
+
+	@Test
+
+	public void csvWrite() throws Exception {
+		EntityGenerator.generateCompanies();
+		Visualization v = new Visualization();
+
+		for (Company c : EntityGenerator.generateCompanies()) {
+
+			// v.csvWrite(c, SALARY_CSV);
+			v.csvWriteBySalaryAscending(c, SALARY_CSV);
+
+		}
+
+	}
 
 	/**
 	 * Using EntityGenerator generate one Company. Create file
@@ -52,6 +72,11 @@ public class VisualizationTest {
 	 */
 	@Test
 	public void testAgeTaskRequest() throws Exception {
+		Visualization v = new Visualization();
+		for (Company c : EntityGenerator.generateCompanies()) {
+v.csvWriteBySalaryAscending(c, AGE_CSV);
+
+		}
 
 	}
 
