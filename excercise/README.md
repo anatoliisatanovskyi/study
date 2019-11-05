@@ -5,3 +5,4 @@ Test completion order:
 - local.java.excercise.aggregation.AggregationTest
 - local.java.excercise.datapresentation.DataPresentationTest
 - local.java.excercise.visualization.VisualizationTest
+- local.java.excercise.json.JsonTest
