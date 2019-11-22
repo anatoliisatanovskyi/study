@@ -27,5 +27,23 @@ public class ResourceReader {
 		return l;
 
 	}
+	
+	public static String readAsString(String path) {
+		StringBuilder sb = new StringBuilder();
+		try (BufferedReader br = new BufferedReader(
+				new InputStreamReader(ResourceReader.class.getClassLoader().getResourceAsStream(path)))) {
+			String s;
+			while ((s = br.readLine()) != null) {
+			sb.append(s);
+			}
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+		
+		return sb.toString();
+		
+	}
 
 }

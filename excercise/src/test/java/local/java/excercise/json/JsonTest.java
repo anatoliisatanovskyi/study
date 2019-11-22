@@ -2,6 +2,14 @@ package local.java.excercise.json;
 
 import org.junit.Test;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import local.java.excercise.composition.EntityGenerator;
+import local.java.excercise.filesio.ResourceReader;
+import local.java.model.Employee;
+import local.java.model.Sex;
+
 public class JsonTest {
 
 	/**
@@ -39,6 +47,11 @@ public class JsonTest {
 	 */
 	@Test
 	public void testWriteObjectAsJsonString() throws Exception {
+		
+		
+		EmployeeDetails ed = new EmployeeDetails( "Google", "IT", new Employee("Bill", "Sherman", Sex.MALE, 55, 598.88));
+		System.out.println(ed.toJson());
+		//ed.getEmployee().scan(ed.getEmployee());
 	}
 
 	/**
@@ -50,7 +63,7 @@ public class JsonTest {
 	 */
 	@Test
 	public void testLibraryAnnotations() throws Exception {
-
+		System.out.println(new ObjectMapper().writeValueAsString(EntityGenerator.generateCompanies()));
 	}
 
 	/**
@@ -67,6 +80,13 @@ public class JsonTest {
 	 */
 	@Test
 	public void testReadObjectFromJsonString() throws Exception {
+		ObjectMapper Mapper = new ObjectMapper();
+		Mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		String json = ResourceReader.readAsString("json/employeeDetails.json");
+		EmployeeDetails baby = Mapper.readValue(json, EmployeeDetails.class);
+		Class<EmployeeDetails> c = EmployeeDetails.class;
+		EmployeeDetails instance = c.newInstance();
+		System.out.println(baby);
 	}
 
 	/**

@@ -16,9 +16,8 @@ public class VisualizationTest {
 
 	private static final String SALARY_CSV = "salary.csv";
 	private static final String AGE_CSV = "age.csv";
-
+	
 	@Test
-
 	public void csvWrite() throws Exception {
 		EntityGenerator.generateCompanies();
 		Visualization v = new Visualization();

@@ -1,5 +1,10 @@
 package local.java.model;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Employee implements Comparable {
 
 	private String firstName;
@@ -42,6 +47,7 @@ public class Employee implements Comparable {
 		this.lastName = lastName;
 	}
 	
+	@JsonIgnore
 	public String getFullName() {
 		return this.firstName + " " + this.lastName;
 		
@@ -87,6 +93,16 @@ public class Employee implements Comparable {
 		else
 			return 0;
 	
+	}
+	
+	public void scan(Object obj) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		Class c = obj.getClass();
+		Method[] methods = c.getMethods();
+		for( Method m: methods) {
+			if( m.getName().startsWith("Get")) {
+				m.invoke(this);
+			}
+		}
 	}
 	
 
