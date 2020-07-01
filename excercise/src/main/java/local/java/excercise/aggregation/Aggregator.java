@@ -4,6 +4,8 @@ import local.java.excercise.composition.EntityGenerator;
 import local.java.model.*;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import local.java.model.Sex.*;
 
@@ -18,7 +20,11 @@ public class Aggregator {
 				employeeCount++;
 			}
 		}
-		return employeeCount;
+
+		return company.getDepartments().stream().mapToInt(d -> d.getEmployees().size()).sum();
+
+		// return employeeCount;
+
 	}
 
 	public static List<Employee> getEmployees(Company company) {
@@ -26,11 +32,8 @@ public class Aggregator {
 	}
 
 	public static List<Employee> getEmployees(Collection<Department> departments) {
-		List<Employee> employees = new ArrayList<>();
-		for (Department d : departments) {
-			employees.addAll(d.getEmployees());
-		}
-		return employees;
+
+		return departments.stream().flatMap(d -> d.getEmployees().stream()).collect(Collectors.toList());
 	}
 
 	public static Employee maxSalary(Company company) {
@@ -38,89 +41,52 @@ public class Aggregator {
 	}
 
 	public static Employee maxSalary(Collection<Department> departments) {
-		TreeSet<Employee> set = new TreeSet<Employee>(new Comparator<Employee>() {
-			@Override
-			public int compare(Employee o1, Employee o2) {
-				return o1.getSalary().compareTo(o2.getSalary());
-			}
-		});
-		set.addAll(getEmployees(departments));
 
-		return set.last();
+		return departments.stream().flatMap(d -> d.getEmployees().stream())
+				.max(Comparator.comparingDouble(Employee::getSalary)).get();
+
 	}
 
 	public static double maxSalaryInDepartment(Department d) {
-		TreeSet<Employee> set = new TreeSet<Employee>(new Comparator<Employee>() {
-			@Override
-			public int compare(Employee o1, Employee o2) {
-				return o1.getSalary().compareTo(o2.getSalary());
-			}
-		});
-
-		set.addAll(d.getEmployees());
-
-		return set.last().getSalary();
+		return d.getEmployees().stream().mapToDouble(Employee::getSalary).max().getAsDouble();
 	}
 
 	public static double minSalaryInDepartment(Department d) {
-		TreeSet<Employee> set = new TreeSet<Employee>(new Comparator<Employee>() {
-			@Override
-			public int compare(Employee o1, Employee o2) {
-				return o1.getSalary().compareTo(o2.getSalary());
-			}
-		});
-
-		set.addAll(d.getEmployees());
-
-		return set.first().getSalary();
+		return d.getEmployees().stream().mapToDouble(Employee::getSalary).min().getAsDouble();
 	}
 
 	public static Employee minSalary(Company company) {
-		TreeSet<Employee> set = new TreeSet<Employee>(new Comparator<Employee>() {
-			@Override
-			public int compare(Employee o1, Employee o2) {
-				return o1.getSalary().compareTo(o2.getSalary());
-			}
-		});
 
-		set.addAll(getEmployees(company));
-
-		return set.first();
+		return company.getDepartments().parallelStream().flatMap(d -> d.getEmployees().stream())
+				.sorted(Comparator.comparingDouble(Employee::getSalary)).findFirst().get();
 
 	}
 
 	public static double avarageSalary(Company company) {
-		int allSalary = 0;
-		int workersCount = 0;
-		List<Double> salaryList = new ArrayList();
-		Collection<Department> depCpllectiom = company.getDepartments();
-		for (Department d : depCpllectiom) {
-			Collection<Employee> employeeCollection = d.getEmployees();
-			for (Employee e : employeeCollection) {
-				allSalary += e.getSalary();
-				workersCount++;
-			}
-
-		}
-
-		return allSalary / workersCount;
+	
+		double allSalary = company.getDepartments().parallelStream()
+				.flatMap(d-> d.getEmployees().parallelStream())
+				.mapToDouble(Employee::getSalary)
+				.sum();
+		long allEmployees = company.getDepartments().parallelStream()
+				.flatMap(d-> d.getEmployees().parallelStream())
+				.count();
+		return  (int)allSalary / allEmployees;
 	}
 
 	public static double avarageSalarySex(Company company, Sex sex) {
-		int allSalary = 0;
-		int workersCount = 0;
-		List<Double> salaryList = new ArrayList();
-		Collection<Department> depCpllectiom = company.getDepartments();
-		for (Department d : depCpllectiom) {
-			Collection<Employee> employeeCollection = d.getEmployees();
-			for (Employee e : employeeCollection) {
-				if (e.getSex() == sex) {
-					allSalary += e.getSalary();
-					workersCount++;
-				}
-			}
-		}
-		return allSalary / workersCount;
+		
+		double allSalary = company.getDepartments().parallelStream()
+				.flatMap(d-> d.getEmployees().parallelStream())
+				.filter(e-> e.getSex() == sex)
+				.mapToDouble(Employee::getSalary)
+				.sum();
+		long allEmployees = company.getDepartments().parallelStream()
+				.flatMap(d-> d.getEmployees().parallelStream())
+				.filter(e-> e.getSex() == sex)
+				.count();
+		return Math.round(allSalary) / allEmployees;
+	
 	}
 
 	public static Map countEmployeeInDepartaments(List<Company> company) {
