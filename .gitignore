@@ -19,3 +19,5 @@
 
 
 **/*.csv
+/parent.eml
+/parent.iml
